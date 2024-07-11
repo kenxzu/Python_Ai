@@ -1,0 +1,219 @@
+#INI ADALAH BFS#
+
+# vertexList = ['0', '1', '2', '3', '4', '5', '6'] #Pendeklarasian node dalam list
+# edgeList = [(0,1), (0,3), (3,0) , (3,1) , (3,2), (3,4) , (1,0) , (1,3) , (1,2), (1,6) , (1,5), (4,3), (4,2), (4,6) , (2,4), (2,3), (2,1), (2,5), (5,1), (5,2), (6,1), (6,4)]  #Pendeklarasian hubungan node berbentuk tuple dalam list
+# graphs = (vertexList, edgeList) #Graphs yang berisi vertexList dan edgeList
+
+# def bfs(graphs, start, end): #Pembuatan fungsi bfs (berisi parameter graphs dan start)
+#     visitedList = [] #Pendeklarasian untuk cek semua node
+#     queue = [start] #Pendeklarasian untuk cek semua jalur, sesuai input start
+#     adjacencyList = [[] for vertex in vertexList] #Pendeklarasian list kosong berjumlah sama dengan vertexList di dalam list
+
+#     # isi Daftar tetangga dari graph
+#     for edge in edgeList: #Perulangan sebanyak jumlah edgeList untuk mengisi adjacencyList
+#         adjacencyList[edge[0]].append(edge[1]) #adjacencyList indeks ke – (nilai dari edge[0])  dimasukan nilai dari (edge[1]
+
+#     # bfs
+#     while queue: #While akan berhenti jika queue sudah tidak berisi
+#         current = queue.pop()
+#         for neighbor in adjacencyList[current]: #Variable neighbor digunakan untuk penyimpanan sementara dari neighbor
+#             if not neighbor in visitedList:
+#                 queue.insert(0,neighbor)
+#         visitedList.append(current)
+#     return visitedList
+
+# print(bfs(graphs, 2,6))
+
+#usedfor tugas 
+# graphs={
+#         0 : [1,3],
+#         1 : [0,3,2,6],
+#         3 : [0,1,2,4],
+#         2 : [4,3,1,5],
+#         4 : [3,2,6],
+#         6 : [1,4],
+#         5 : [1,2]
+#     }
+
+# def bfs(graph,start,end):
+#     queue = [start] #2
+#     visited = []
+#     current = '' 
+#     neighbor = ''
+
+#     while queue:
+#         current = queue.pop(0) #saat in di 2
+#         if current == end :
+#             visited.append(current)
+#             break
+#         if current not in visited:
+#             visited.append(current)
+#             neighbor = graph[current]
+#             for x in neighbor:
+#                 queue.append(x)
+#     return print(visited)
+
+# bfs(graphs, 2, 6)
+
+# pendeklarasian node dalam list
+vertexList = ['0', '1', '2', '3', '4', '5', '6']
+# # Jika membaca graf dari kiri-kanan & hasil dari kanan ke kiri
+edgeList = [(0,1), (0,3), (3,0) , (3,1) , (3,2), (3,4) , (1,0) , (1,3) , (1,2), (1,6) , (1,5), (4,3), (4,2), (4,6) , (2,4), (2,3), (2,1), (2,5), (5,1), (5,2), (6,1), (6,4)]
+graphs = (vertexList, edgeList)
+#asdos punya 
+# def dfs(graph, start):
+#     vertexList, edgeList = graph
+#     #dibuat list untuk menyimpan vertex yang sudah dikunjungi
+#     visitedVertex = []
+#     #stack diisi dengan nilai awal/start
+#     stack = [start]
+#     #untuk menyimpan node node yang dikunjungi
+#     adjacencyList = [[] for vertex in vertexList]
+
+#     #Perulangan untuk memasukkan edgelist index ke 1, dan dikelompokkan berdasarkan edgelist index ke 0
+#     for edge in edgeList:
+#         adjacencyList[edge[0]].append(edge[1])
+
+#     while stack:
+#       #nilai current untuk menghapus node yang sudah dikunjungi
+#         current = stack.pop()
+#         for neighbor in adjacencyList[current]:
+#           #mengecek
+#             if not neighbor in visitedVertex:
+#                 stack.append(neighbor)
+#         visitedVertex.append(current)
+#     return visitedVertex
+
+# print(dfs(graphs, 2))
+
+#chat gpt dengan end node 
+def dfs(graph, start, end):
+    vertexList, edgeList = graph
+    visitedVertex = []
+    stack = [start]
+    adjacencyList = [[] for vertex in vertexList]
+
+    for edge in edgeList:
+        adjacencyList[edge[0]].append(edge[1])
+
+    while stack:
+        current = stack.pop()
+        if current == end:
+            visitedVertex.append(current)
+            return visitedVertex  # Exit the function if the end node is reached
+        if current not in visitedVertex:
+            visitedVertex.append(current)
+            for neighbor in adjacencyList[current]:
+                if neighbor not in visitedVertex:
+                    stack.append(neighbor)
+
+    return visitedVertex
+
+print(dfs(graphs, 2, 6))
+
+
+
+#ini dari chat gpt.
+# vertexList = ['0', '1', '2', '3', '4', '5', '6']  # Pendeklarasian node dalam list
+# edgeList = [(0, 1), (0, 3), (3, 0), (3, 1), (3, 2), (3, 4), (1, 0), (1, 3), (1, 2), (1, 6), (1, 5), (4, 3), (4, 2), (4, 6), (2, 4), (2, 3), (2, 1), (2, 5), (5, 1), (5, 2), (6, 1), (6, 4)]  # Pendeklarasian hubungan node berbentuk tuple dalam list
+# graphs = (vertexList, edgeList)  # Graphs yang berisi vertexList dan edgeList
+
+# def bfs(graphs, start, end):  # Pembuatan fungsi bfs (berisi parameter graphs, start, dan end)
+#     visitedList = []  # Pendeklarasian untuk cek semua node
+#     queue = [[start]]  # Pendeklarasian untuk cek semua jalur, sesuai input start
+#     adjacencyList = [[] for vertex in vertexList]  # Pendeklarasian list kosong berjumlah sama dengan vertexList di dalam list
+
+#     # Isi Daftar tetangga dari graph
+#     for edge in edgeList:  # Perulangan sebanyak jumlah edgeList untuk mengisi adjacencyList
+#         adjacencyList[edge[0]].append(edge[1])  # adjacencyList indeks ke – (nilai dari edge[0])  dimasukan nilai dari (edge[1])
+
+#     # bfs
+#     while queue:  # While akan berhenti jika queue sudah tidak berisi
+#         path = queue.pop(0)
+#         current = path[-1]  # Get the current node from the path
+
+#         if current == end:
+#             return path  # Return the path when the end node is reached
+
+#         if current not in visitedList:
+#             for neighbor in adjacencyList[current]:  # Variable neighbor digunakan untuk penyimpanan sementara dari neighbor
+#                 new_path = list(path)  # Create a new path by copying the current path
+#                 new_path.append(neighbor)  # Append the neighbor to the new path
+#                 queue.append(new_path)
+
+#             visitedList.append(current)
+
+#     return None  # Return None if there's no path from start to end
+
+# result = bfs(graphs, 2, 6)
+# print(result)
+
+#chat gpt lagi
+# from collections import defaultdict, deque
+
+# def bfs(graph, start, end):
+#     visited = set()
+#     queue = deque([start])
+#     parent = {}  # To keep track of the parent of each node
+
+#     while queue:
+#         node = queue.popleft()
+
+#         if node == end:
+#             # Reconstruct the path from end to start
+#             path = []
+#             while node is not None:
+#                 path.insert(0, node)
+#                 node = parent.get(node)
+#             return path
+
+#         if node not in visited:
+#             visited.add(node)
+
+#             for neighbor in graph[node]:
+#                 if neighbor not in visited:
+#                     queue.append(neighbor)
+#                     parent[neighbor] = node
+
+#     return None
+
+# Define the edges of the graph
+# edges = [(0, 1), (0, 3), (3, 0), (3, 1), (3, 2), (3, 4), (1, 0), (1, 3), (1, 2), (1, 6), (1, 5), (4, 3), (4, 2), (4, 6), (2, 4), (2, 3), (2, 1), (2, 5), (5, 1), (5, 2), (6, 1), (6, 4)]
+
+# # Create an adjacency list representation of the graph
+# graph = defaultdict(list)
+# for edge in edges:
+#     graph[edge[0]].append(edge[1])
+
+# # Starting from node 2 and ending at node 6
+# start_node = 2
+# end_node = 6
+
+# result = bfs(graph, start_node, end_node)
+
+# if result:
+#     print(result)
+# else:
+#     print(f"No path found from node {start_node} to node {end_node}.")
+
+# def dfs(graph, start, end):
+#     stack = [start]
+#     visited = []
+
+#     while stack:
+#         current = stack.pop()
+
+#         if current == end:
+#             visited.append(current)
+#             break
+
+#         if current not in visited:
+#             visited.append(current)
+#             neighbors = graph[current]
+#             To mimic the behavior of a stack, we reverse the order of neighbors
+#             for neighbor in reversed(neighbors):
+#                 stack.append(neighbor)
+
+#     return print(visited)
+
+# dfs(graphs, 2, 5)
